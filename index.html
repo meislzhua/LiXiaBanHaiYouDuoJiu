@@ -2,19 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>离下班还有多久</title>
 </head>
-<body onload="window.setInterval('output()',1000);">
+<body onload="window.setInterval('output()', 1000);">
 
 <script>
-
-
-    function output(){
-        var diff = (new Date().setHours(18, 0,0) - new Date()) / 3600000;
+    function output() {
+        var diff = (new Date().setHours(18, 0, 0) - new Date()) / 3600000;
+        var actionName = diff > 0 ? "离下班还剩" : "已加班";
+        if (diff < 0) {
+            diff = (new Date() - new Date().setHours(18, 0, 0)) / 3600000
+        }
         var hour = Math.floor(diff);
         var min = Math.floor((diff - hour) * 60);
-        var second =Math.floor(((diff - hour)*60-min)*60);
-        document.body.innerHTML = "离下班还剩%1小时%2分钟%3秒".replace("%1", hour).replace("%2", min).replace("%3",second);
+        var second = Math.floor(((diff - hour) * 60 - min) * 60);
+        document.body.innerHTML = actionName + "%1小时%2分钟%3秒"
+                                  .replace("%1", hour)
+                                  .replace("%2", min)
+                                  .replace("%3", second);
     }
 </script>
 </body>
