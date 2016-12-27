@@ -14,8 +14,7 @@
         var hour = Math.floor(diff);
         var min = Math.floor((diff - hour) * 60);
         var second =Math.floor(((diff - hour)*60-min)*60);
-        document.body.innerHTML = "";
-        document.write("离下班还剩%1小时%2分钟%3秒".replace("%1", hour).replace("%2", min).replace("%3",second));
+        document.body.innerHTML = "离下班还剩%1小时%2分钟%3秒".replace("%1", hour).replace("%2", min).replace("%3",second);
     }
 </script>
 </body>
