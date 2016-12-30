@@ -21,7 +21,7 @@
         .animation {
             display: inline-block;
             font-size: 90px;
-            transition: transform 250ms;
+            transition: transform 150ms;
         }
 
         .animation.rotate {
@@ -51,78 +51,52 @@
     var hour = 0, min = 0, second = 0;
     //采用缓存diff制,避免显示的跨秒现象
     var diff = (new Date().setHours(18, 0, 0) - new Date()) / 1000;
-
     //todo 计时方式还可以优化
-
     //获取时间相关资料函数
     //修改原算法,原算法可能由于精度或其他问题,导致秒计算错误
     function getTime() {
-
         var abs_diff = Math.abs(diff);
-
-        var hour = Math.floor(abs_diff/3600);
-        var min = Math.floor(abs_diff%3600/60);
-        var second = abs_diff%60;
-
+        var hour = Math.floor(abs_diff / 3600);
+        var min = Math.floor(abs_diff % 3600 / 60);
+        var second = abs_diff % 60;
         return {hour, min, second};
     }
-
     //主倒计时的 单个翻页动画函数
     function setNumberWithAnimation($ele, number) {
         $ele.className = $ele.className + " rotate";
         setTimeout(()=> {
             $ele.innerHTML = number;
             $ele.className = $ele.className.replace("rotate", 0);
-        }, 180);
+        }, 130);
     }
-
-
     //渲染主函数
     function render() {
         var times = getTime();
-        console.log(times);
         //渲染 详细剩余时间
         $detail.innerHTML = (diff > 0 ? "离下班还剩" : "已加班") + `${times.hour}小时${times.min}分钟${times.second}秒`;
-
         //渲染 主倒计时
         var tmp_number = 0;
         //小时渲染
         if (hour != times.hour) {
-            if (parseInt(hour / 10) != (tmp_number = parseInt(times.hour / 10))) {
-                setNumberWithAnimation($number[0], tmp_number);
-            }
-            if (hour % 10 != (tmp_number = times.hour % 10)) {
-                setNumberWithAnimation($number[1], tmp_number);
-            }
+            if (parseInt(hour / 10) != (tmp_number = parseInt(times.hour / 10))) setNumberWithAnimation($number[0], tmp_number);
+            if (hour % 10 != (tmp_number = times.hour % 10))  setNumberWithAnimation($number[1], tmp_number);
             hour = times.hour;
         }
         //分钟渲染
         if (min != times.min) {
-            if (parseInt(min / 10) != (tmp_number = parseInt(times.min / 10))) {
-                setNumberWithAnimation($number[2], tmp_number);
-            }
-            if (min % 10 != (tmp_number = times.min % 10)) {
-                setNumberWithAnimation($number[3], tmp_number);
-            }
+            if (parseInt(min / 10) != (tmp_number = parseInt(times.min / 10)))  setNumberWithAnimation($number[2], tmp_number);
+            if (min % 10 != (tmp_number = times.min % 10)) setNumberWithAnimation($number[3], tmp_number);
             min = times.min;
         }
         //秒渲染
-        if (parseInt(second / 10) != (tmp_number = parseInt(times.second / 10))) {
-            setNumberWithAnimation($number[4], tmp_number);
-        }
-        if (second % 10 != (tmp_number = times.second % 10)) {
-
-            setNumberWithAnimation($number[5], tmp_number);
-        }
+        if (parseInt(second / 10) != (tmp_number = parseInt(times.second / 10)))  setNumberWithAnimation($number[4], tmp_number);
+        if (second % 10 != (tmp_number = times.second % 10))   setNumberWithAnimation($number[5], tmp_number);
         second = times.second;
     }
-
     render();
     window.setInterval(()=> {
         diff--;
-        console.log(diff);
         render();
     }, 1000);
-
 </script>
 </html>
