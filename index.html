@@ -46,34 +46,33 @@
 
 </body>
 <script>
-    var $detail = document.querySelector("#detail");
-    var $number = document.querySelectorAll(".number");
+    var $detail = document.getElementById("detail");
+    var $number = document.getElementsByClassName("number");
     var hour = 0, min = 0, second = 0;
-    //采用缓存diff制,避免显示的跨秒现象
-    var diff = (new Date().setHours(18, 0, 0) - new Date()) / 1000;
     //todo 计时方式还可以优化
     //获取时间相关资料函数
     //修改原算法,原算法可能由于精度或其他问题,导致秒计算错误
     function getTime() {
+        var diff =  Math.floor((new Date().setHours(18, 0, 0) - new Date()) / 1000);
         var abs_diff = Math.abs(diff);
         var hour = Math.floor(abs_diff / 3600);
         var min = Math.floor(abs_diff % 3600 / 60);
         var second = abs_diff % 60;
-        return {hour, min, second};
+        return {diff:diff,hour:hour, min:min, second:second};
     }
     //主倒计时的 单个翻页动画函数
     function setNumberWithAnimation($ele, number) {
         $ele.className = $ele.className + " rotate";
-        setTimeout(()=> {
+        setTimeout(function() {
             $ele.innerHTML = number;
-            $ele.className = $ele.className.replace("rotate", 0);
+            $ele.className = $ele.className.replace("rotate", "");
         }, 130);
     }
     //渲染主函数
     function render() {
         var times = getTime();
         //渲染 详细剩余时间
-        $detail.innerHTML = (diff > 0 ? "离下班还剩" : "已加班") + `${times.hour}小时${times.min}分钟${times.second}秒`;
+        $detail.innerHTML = (times.diff > 0 ? "离下班还剩" : "已加班") +times.hour+'小时'+times.min+'分钟'+times.second+'秒';
         //渲染 主倒计时
         var tmp_number = 0;
         //小时渲染
@@ -94,9 +93,6 @@
         second = times.second;
     }
     render();
-    window.setInterval(()=> {
-        diff--;
-        render();
-    }, 1000);
+    window.setInterval(render, 1000);
 </script>
 </html>
