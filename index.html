@@ -5,30 +5,25 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>离下班还有多久</title>
     <style>
-        #main_box {
-            display: inline-block;
-            position: relative;
-            top:35%;
-            height: 150px;
-            margin-top: -75px;
-            padding:20px;
-            cursor: pointer;
-        }
-        #main_box:hover{
-            box-shadow: 0 0 10px;
-
-        }
-        #main_box .content{
-            display: none;
-        }
-        #main_box:hover .content{
-            display: inline-block;
-        }
-
         body, html {
             height: 100%;
             font-family: "Lucida Grande", '微软雅黑', Verdana, Lucida, Arial, Helvetica, "宋体", sans-serif;
             text-align: center;
+        }
+
+        #main_box {
+            display: inline-block;
+            position: relative;
+            top: 35%;
+            height: 150px;
+            margin-top: -75px;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        #main_box:hover {
+            box-shadow: 0 0 10px;
+
         }
 
         .animation {
@@ -43,7 +38,7 @@
     </style>
 </head>
 <body>
-<div id="main_box">
+<div id="main_box" onclick="copy();">
     <div>
         <div class="animation number">0</div>
         <div class="animation number">0</div>
@@ -55,7 +50,6 @@
         <div class="animation number">0</div>
     </div>
     <div id="detail"></div>
-    <div class="content">我是内容</div>
 </div>
 
 </body>
@@ -68,17 +62,17 @@
     //获取时间相关资料函数
     //修改原算法,原算法可能由于精度或其他问题,导致秒计算错误
     function getTime() {
-        var diff =  Math.floor((new Date().setHours(18, 0, 0) - new Date()) / 1000);
+        var diff = Math.floor((new Date().setHours(18, 0, 0) - new Date()) / 1000);
         var abs_diff = Math.abs(diff);
         var hour = Math.floor(abs_diff / 3600);
         var min = Math.floor(abs_diff % 3600 / 60);
         var second = abs_diff % 60;
-        return {diff:diff,hour:hour, min:min, second:second};
+        return {diff: diff, hour: hour, min: min, second: second};
     }
     //主倒计时的 单个翻页动画函数
     function setNumberWithAnimation($ele, number) {
         $ele.className = $ele.className + " rotate";
-        setTimeout(function() {
+        setTimeout(function () {
             $ele.innerHTML = number;
             $ele.className = $ele.className.replace(" rotate", "");
         }, 130);
@@ -87,7 +81,7 @@
     function render() {
         var times = getTime();
         //渲染 详细剩余时间
-        $detail.innerHTML = (times.diff > 0 ? "离下班还剩" : "已加班") +times.hour+'小时'+times.min+'分钟'+times.second+'秒';
+        $detail.innerHTML = (times.diff > 0 ? "离下班还剩" : "已加班") + times.hour + '小时' + times.min + '分钟' + times.second + '秒';
         //渲染 主倒计时
         var tmp_number = 0;
         //小时渲染
@@ -111,7 +105,20 @@
     window.setInterval(render, 1000);
 
     //内容禁止选中
-    $main_box.onselectstart = function(){return false;}
+    $main_box.onselectstart = function () {
+        return false;
+    };
+
+    //复制时间函数
+    //todo 修改为兼容手机,IE等的方式
+    function copy() {
+        var selection = window.getSelection(), range = document.createRange();
+        range.selectNodeContents($detail);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand("copy");
+        selection.removeAllRanges();
+    }
 
 </script>
 </html>
