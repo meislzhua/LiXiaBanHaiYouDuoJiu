@@ -6,16 +6,29 @@
     <title>离下班还有多久</title>
     <style>
         #main_box {
+            display: inline-block;
             position: relative;
-            text-align: center;
-            top: 35%;
-            height: 200px;
-            margin-top: -100px;
+            top:35%;
+            height: 150px;
+            margin-top: -75px;
+            padding:20px;
+            cursor: pointer;
+        }
+        #main_box:hover{
+            box-shadow: 0 0 10px;
+
+        }
+        #main_box .content{
+            display: none;
+        }
+        #main_box:hover .content{
+            display: inline-block;
         }
 
         body, html {
             height: 100%;
             font-family: "Lucida Grande", '微软雅黑', Verdana, Lucida, Arial, Helvetica, "宋体", sans-serif;
+            text-align: center;
         }
 
         .animation {
@@ -32,20 +45,22 @@
 <body>
 <div id="main_box">
     <div>
-        <div class="animation number">1</div>
-        <div class="animation number">2</div>
+        <div class="animation number">0</div>
+        <div class="animation number">0</div>
         <div class="animation ">:</div>
-        <div class="animation number">1</div>
-        <div class="animation number">2</div>
+        <div class="animation number">0</div>
+        <div class="animation number">0</div>
         <div class="animation">:</div>
-        <div class="animation number">1</div>
-        <div class="animation number">2</div>
+        <div class="animation number">0</div>
+        <div class="animation number">0</div>
     </div>
     <div id="detail"></div>
+    <div class="content">我是内容</div>
 </div>
 
 </body>
 <script>
+    var $main_box = document.getElementById("main_box");
     var $detail = document.getElementById("detail");
     var $number = document.getElementsByClassName("number");
     var hour = 0, min = 0, second = 0;
@@ -65,7 +80,7 @@
         $ele.className = $ele.className + " rotate";
         setTimeout(function() {
             $ele.innerHTML = number;
-            $ele.className = $ele.className.replace("rotate", "");
+            $ele.className = $ele.className.replace(" rotate", "");
         }, 130);
     }
     //渲染主函数
@@ -94,5 +109,9 @@
     }
     render();
     window.setInterval(render, 1000);
+
+    //内容禁止选中
+    $main_box.onselectstart = function(){return false;}
+
 </script>
 </html>
