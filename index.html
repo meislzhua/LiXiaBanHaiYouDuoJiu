@@ -30,6 +30,8 @@
             display: inline-block;
             font-size: 90px;
             transition: transform 150ms;
+            _zoom:1;
+            *display:inline;
         }
 
         .animation.rotate {
@@ -62,6 +64,26 @@
 </div>
 
 </body>
+<script>
+    //重写getElementsByClassName 兼容IE7以下
+    if (!document.getElementsByClassName) {
+        document.getElementsByClassName = function (className, element) {
+            var children = (element || document).getElementsByTagName('*');
+            var elements = new Array();
+            for (var i = 0; i < children.length; i++) {
+                var child = children[i];
+                var classNames = child.className.split(' ');
+                for (var j = 0; j < classNames.length; j++) {
+                    if (classNames[j] == className) {
+                        elements.push(child);
+                        break;
+                    }
+                }
+            }
+            return elements;
+        };
+    }
+</script>
 <script>
     var $main_box = document.getElementById("main_box");
     var $detail = document.getElementById("detail");
@@ -119,14 +141,23 @@
     };
 
     //复制时间函数
-    //todo 修改为兼容手机,IE等的方式
+    //todo 修改为兼容手机的方式
     function copy() {
-        var selection = window.getSelection(), range = document.createRange();
-        range.selectNodeContents($detail);
-        selection.removeAllRanges();
-        selection.addRange(range);
-        document.execCommand("copy");
-        selection.removeAllRanges();
+        if (window.document.selection) {
+            var range = window.document.selection.createRange();
+            range.moveToElementText($detail);
+            range.select();
+            range.execCommand("copy");
+        }else if (window.getSelection) {
+            selection = window.getSelection();
+            var range = document.createRange();
+            range.selectNodeContents($detail);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand("copy");
+            selection.removeAllRanges();
+        }
+
     }
 </script>
 <script>
