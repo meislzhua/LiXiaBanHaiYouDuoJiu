@@ -58,6 +58,13 @@
     var $detail = document.getElementById("detail");
     var $number = document.getElementsByClassName("number");
     var hour = 0, min = 0, second = 0;
+    if (!isPc()) {
+        var animation = document.getElementsByClassName("animation");
+        for (var i = 0; i < animation.length; i++) {
+            animation[i].style.fontSize = '50px';
+        }
+        document.getElementById('main_box').style.height = '100px';
+    }
     //todo 计时方式还可以优化
     //获取时间相关资料函数
     //修改原算法,原算法可能由于精度或其他问题,导致秒计算错误
@@ -118,6 +125,18 @@
         selection.addRange(range);
         document.execCommand("copy");
         selection.removeAllRanges();
+    }
+
+    function isPc() {
+      var userAgentInfo = navigator.userAgent;
+        var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPod");
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false; break;
+            }
+        }
+        return flag;
     }
 
 </script>
