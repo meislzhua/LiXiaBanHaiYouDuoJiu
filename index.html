@@ -35,8 +35,8 @@
             display: inline-block;
             font-size: 90px;
             transition: transform 150ms;
-            _zoom:1;
-            *display:inline;
+            _zoom: 1;
+            *display: inline;
         }
 
         .animation.rotate {
@@ -47,6 +47,7 @@
             .animation {
                 font-size: 50px;
             }
+
             #main_box {
                 height: 100px;
             }
@@ -95,16 +96,19 @@
         };
     }
 </script>
+
+
 <script>
-    var $main_box = document.getElementById("main_box");
     var $detail = document.getElementById("detail");
     var $number = document.getElementsByClassName("number");
+    var $app = document.getElementById('app');
     var hour = 0, min = 0, second = 0;
+
     //todo 计时方式还可以优化
     //获取时间相关资料函数
     //修改原算法,原算法可能由于精度或其他问题,导致秒计算错误
     function getTime() {
-        var diff = Math.floor((new Date().setHours(18, 0, 0) - new Date()) / 1000);
+        var diff = Math.floor((getXiaBanTime() - new Date()) / 1000);
         var abs_diff = Math.abs(diff);
         var hour = Math.floor(abs_diff / 3600);
         var min = Math.floor(abs_diff % 3600 / 60);
@@ -147,7 +151,7 @@
     window.setInterval(render, 1000);
 
     //内容禁止选中
-    $main_box.onselectstart = function () {
+    $app.onselectstart = function () {
         return false;
     };
 
@@ -159,7 +163,7 @@
             range.moveToElementText($detail);
             range.select();
             range.execCommand("copy");
-        }else if (window.getSelection) {
+        } else if (window.getSelection) {
             selection = window.getSelection();
             var range = document.createRange();
             range.selectNodeContents($detail);
@@ -170,8 +174,22 @@
         }
 
     }
+
+    //获取下班时间
+    function getXiaBanTime() {
+        try {
+            var time = window.localStorage.time_xiaban.split(":");
+            var xiaban = new Date().setHours(time[0].trim(), time[1].trim(), 0);
+            if (xiaban) return xiaban;
+            throw "时间转化错误!";
+        } catch (e) {
+            return new Date().setHours(18, 0, 0)
+        }
+    }
+
 </script>
 <script>
+    //ga信息
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -179,8 +197,8 @@
     ga('create', 'UA-55780211-4', 'auto');
     ga('send', 'pageview');
 
-
-    particleground(document.getElementById('app'), {
+    //canvas背景
+    particleground($app, {
         dotColor: '#5cbdaa',
         lineColor: '#5cbdaa'
     });
