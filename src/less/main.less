@@ -1,0 +1,50 @@
+@responsive-width: 480px;
+
+body, html {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Lucida Grande", '微软雅黑', Verdana, Lucida, Arial, Helvetica, "宋体", sans-serif;
+    text-align: center;
+    background-color: #16a085;
+}
+
+#main_box {
+    color: white;
+    display: inline-block;
+    position: relative;
+    top: 35%;
+    height: 150px;
+    margin-top: -75px;
+    padding: 20px;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0 0 10px;
+    }
+
+    @media screen and (max-width: @responsive-width) {
+        height: 100px;
+    }
+}
+
+.animation {
+    display: inline-block;
+    font-size: 90px;
+    transition: transform 150ms;
+    _zoom: 1;
+    *display: inline;
+
+    @media screen and (max-width: @responsive-width) {
+        font-size: 50px;
+    }
+}
+
+.animation.rotate {
+    transform: rotateX(90deg);
+}
+
+.pg-canvas {
+    position: absolute;
+}

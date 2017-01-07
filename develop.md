@@ -8,4 +8,13 @@
 |:-------------:|:-------------|:--------------|
 |time_xiaban|String|下班时间|
 
+## 命令行
+### Debug
+``` bash
+$ npm run dev
+```
 
+### Build
+``` bash
+$ npm run build
+```

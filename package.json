@@ -1,0 +1,30 @@
+{
+  "name": "lixiabanhaiyouduojiu",
+  "version": "1.0.0",
+  "description": "离下班还有多久",
+  "scripts": {
+    "dev": "gulp dev",
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meislzhua/LiXiaBanHaiYouDuoJiu.git"
+  },
+  "author": "meislzhua",
+  "bugs": {
+    "url": "https://github.com/meislzhua/LiXiaBanHaiYouDuoJiu/issues"
+  },
+  "homepage": "https://github.com/meislzhua/LiXiaBanHaiYouDuoJiu#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-html-minify": "^0.0.14",
+    "gulp-less": "^3.3.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-open": "^2.0.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-watch": "^4.3.11"
+  }
+}
