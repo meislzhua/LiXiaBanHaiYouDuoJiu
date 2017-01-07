@@ -1,6 +1,6 @@
 {
   "name": "lixiabanhaiyouduojiu",
-  "version": "1.0.0-pre",
+  "version": "1.0.1",
   "description": "离下班还有多久",
   "scripts": {
     "dev": "gulp dev",
