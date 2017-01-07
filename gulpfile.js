@@ -63,10 +63,10 @@ gulp.task('reload-js', function() {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(['*.html'], ['build-html']);
+    gulp.watch(['./src/*.html'], ['build-html']);
     gulp.watch(['./src/js/*.js'], ['reload-js']);
     gulp.watch(['./src/less/*.less'], ['reload-style']);
 });
 
-gulp.task("build", ["build-style", "build-js", "build-html"])
-gulp.task('dev', ['web', 'watch'])
+gulp.task("build", ["build-style", "build-js", "build-html"]);
+gulp.task('dev', ['web', 'watch']);
