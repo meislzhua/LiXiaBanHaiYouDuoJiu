@@ -17,6 +17,7 @@
   "homepage": "https://github.com/meislzhua/LiXiaBanHaiYouDuoJiu#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-cheerio": "^0.6.2",
     "gulp-clean-css": "^2.3.2",
     "gulp-concat": "^2.6.1",
     "gulp-connect": "^5.0.0",

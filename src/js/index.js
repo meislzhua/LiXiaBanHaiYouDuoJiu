@@ -115,7 +115,9 @@ ga('send', 'pageview');
 
 
 //canvas背景
-particleground($app, {
-    dotColor: '#5cbdaa',
-    lineColor: '#5cbdaa'
-});
+setTimeout(function(){
+    particleground($app, {
+        dotColor: '#5cbdaa',
+        lineColor: '#5cbdaa'
+    });
+},0);
